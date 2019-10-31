@@ -56,7 +56,7 @@
 
 # 3. Диаграмма вариантов использования
 
-![Диаграмма вариантов использования](../images/diagrams/usecase/usecase.png)
+![Диаграмма вариантов использования](../images/diagrams/usecase/usecase.svg)
 
 <a name="actors"/>
 
