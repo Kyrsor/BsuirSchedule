@@ -7,7 +7,8 @@
    <children>
       <Button fx:id="addButton" layoutX="14.0" layoutY="359.0" mnemonicParsing="false" onAction="#addButtonClicked" text="Add" />
       <Button fx:id="refreshButton" layoutX="66.0" layoutY="359.0" mnemonicParsing="false" onAction="#refreshButtonClicked" text="Refresh" />
-      <ListView fx:id="choiceList" layoutX="27.0" layoutY="25.0" prefHeight="286.0" prefWidth="99.0" />
+      <ListView fx:id="choiceList" layoutX="27.0" layoutY="25.0" onMouseClicked="#resolveSelection" prefHeight="286.0" prefWidth="99.0" />
       <Button layoutX="137.0" layoutY="359.0" mnemonicParsing="false" onAction="#deleteButtonClicked" text="delete" />
+      <ListView fx:id="scheduleMap" layoutX="189.0" layoutY="76.0" prefHeight="234.0" prefWidth="352.0" />
    </children>
 </AnchorPane>

@@ -8,6 +8,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import scala.collection.immutable.List;
 
 public class Select {
@@ -21,8 +22,9 @@ public class Select {
     public void selectButtonClicked(ActionEvent actionEvent) {
         if (listView.getSelectionModel().getSelectedItem() != null)
             fileExtractor.saveToFile((String)listView.getSelectionModel().getSelectedItem());
-
-        ((Stage)selectButton.getScene().getWindow()).close();
+        Stage stage = (Stage)selectButton.getScene().getWindow();
+        stage.getOnCloseRequest().handle(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+        stage.close();
     }
 
     public void keyTyped(KeyEvent keyEvent) {

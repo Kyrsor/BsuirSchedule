@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,6 +18,7 @@ public class MainMenu {
     public Button addButton;
     public Button refreshButton;
     public ListView choiceList;
+    public ListView scheduleMap;
     private FileExtractor fileExtractor = new FileExtractor();
 
     private void updateListOfGroup() {
@@ -24,13 +26,22 @@ public class MainMenu {
         fileExtractor.getListOfSaves().foreach((String str) -> choiceList.getItems().add(str));
     }
 
+    private void updateScheduleMap() {
+
+    }
+
     @FXML
     void initialize() {
         updateListOfGroup();
+        updateScheduleMap();
     }
 
     public void addButtonClicked(ActionEvent actionEvent) {
         final Stage searchWindow = new Stage();
+        searchWindow.setOnCloseRequest(windowEvent -> {
+            updateScheduleMap();
+            updateListOfGroup();
+        });
         searchWindow.initModality(Modality.APPLICATION_MODAL);
         Parent root = null;
         try {
@@ -43,6 +54,7 @@ public class MainMenu {
         searchWindow.setScene(scene);
         searchWindow.show();
         updateListOfGroup();
+        updateScheduleMap();
     }
 
     public void refreshButtonClicked(ActionEvent actionEvent) {
@@ -52,5 +64,10 @@ public class MainMenu {
         if (choiceList.getSelectionModel().getSelectedItem() != null)
             fileExtractor.removeFromFile((String)choiceList.getSelectionModel().getSelectedItem());
         updateListOfGroup();
+        updateScheduleMap();
+    }
+
+    public void resolveSelection(MouseEvent mouseEvent) {
+        System.out.println(choiceList.getSelectionModel().getSelectedItem());
     }
 }

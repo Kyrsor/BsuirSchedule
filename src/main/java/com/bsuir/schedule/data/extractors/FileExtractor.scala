@@ -31,7 +31,7 @@ class FileExtractor {
     File("saves.txt").delete()
     val file = File("saves.txt")
     for (str <- list) {
-      file.appendAll(str)
+      file.appendAll(str + "\n")
     }
   }
 }
