@@ -5,6 +5,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bsuir.schedule.view.Select">
    <children>
-      <Button layoutX="273.0" layoutY="342.0" mnemonicParsing="false" onAction="#selectButtonClicked" text="Select" />
+      <Button fx:id="selectButton" layoutX="273.0" layoutY="342.0" mnemonicParsing="false" onAction="#selectButtonClicked" text="Select" />
+      <TextField fx:id="input" layoutX="201.0" layoutY="34.0" onKeyTyped="#keyTyped" />
+      <ListView fx:id="listView" layoutX="173.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
