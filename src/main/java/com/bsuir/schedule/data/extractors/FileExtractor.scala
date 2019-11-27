@@ -1,18 +1,27 @@
 package com.bsuir.schedule.data.extractors
 
+import java.io.FileNotFoundException
+
 import scala.io.Source
 import scala.reflect.io.File
 
 class FileExtractor {
   def saveToFile(group: String): Unit = {
-    File("saves.txt").appendAll(group + "\n");
+    if (!getListOfSaves.contains(group)) {
+      File("saves.txt").appendAll(group + "\n");
+    }
   }
 
   def getListOfSaves: List[String] = {
-    val source = Source.fromFile("saves.txt")
-    val list = source.getLines().toList
-    source.close()
-    list
+    try {
+      val source = Source.fromFile("saves.txt")
+      val list = source.getLines().toList
+      source.close()
+      list
+    } catch {
+      case _ => List()
+    }
+
   }
 
   def removeFromFile(stuff: String): Unit = {
