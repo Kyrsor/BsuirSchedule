@@ -1,11 +1,13 @@
 package com.bsuir.schedule.data.extractors
 
-import java.io.FileNotFoundException
+import com.bsuir.schedule.data.models.{GroupSchedule, Schedule, TeacherSchedule}
 
 import scala.io.Source
 import scala.reflect.io.File
 
 class FileExtractor {
+  val serializer: Serializer = new Serializer
+
   def saveToFile(group: String): Unit = {
     if (!getListOfSaves.contains(group)) {
       File("saves.txt").appendAll(group + "\n");
@@ -21,7 +23,14 @@ class FileExtractor {
     } catch {
       case _ => List()
     }
-
+  }
+  def saveScheduleToFile(who: String, string: String): Unit = {
+    try {
+      File(who + ".txt").delete();
+    } catch {
+      case _ => null
+    }
+    File(who + ".txt").appendAll(string)
   }
 
   def removeFromFile(stuff: String): Unit = {
@@ -32,6 +41,19 @@ class FileExtractor {
     val file = File("saves.txt")
     for (str <- list) {
       file.appendAll(str + "\n")
+    }
+  }
+
+  def openSchedule(who: String): Schedule = {
+    val source = Source.fromFile(who + ".txt")
+    val list = source.getLines().toList
+    source.close()
+
+    val classes = serializer.getSchedule(list.reduce((a, b) => a + b))
+    if (who forall Character.isDigit) {
+      new GroupSchedule(classes)
+    } else {
+      new TeacherSchedule(classes)
     }
   }
 }

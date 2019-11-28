@@ -71,16 +71,27 @@ class WebExtractor {
     getScheduleOfTeacher(teacher.name)
   }
 
+  def getRawSchedule(who: String): String = {
+    if (who forall Character.isDigit) {
+      Http("https://journal.bsuir.by/api/v1/studentGroup/schedule").
+        param("studentGroup", who).execute().body.toString
+    } else {
+      val id = getIdOfTeacher(who, ids_of_teachers, list_of_teachers)
+      Http("https://journal.bsuir.by/api/v1/portal/employeeSchedule?").
+        param("employeeId", id.toString).execute().body.toString
+    }
+  }
+
   def getSchedule(who: Object): Schedule = {
     who match {
       case teacher: Teacher => getScheduleOfTeacher(teacher)
-      case string: String =>
-        if (string forall Character.isDigit) {
-          getScheduleOfGroup(string)
+      case str: String =>
+        if (str forall Character.isDigit) {
+          getScheduleOfGroup(str)
         } else {
-          getScheduleOfTeacher(string)
+          getScheduleOfTeacher(str)
         }
-      case Int => null
+      case Int => getScheduleOfGroup(who.toString)
       case _ => null
     }
   }

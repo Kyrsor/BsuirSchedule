@@ -27,7 +27,10 @@ public class MainMenu {
     }
 
     private void updateScheduleMap() {
+        if (choiceList.getSelectionModel().getSelectedItem() != null)
+        {
 
+        }
     }
 
     @FXML
